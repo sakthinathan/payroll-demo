@@ -139,34 +139,63 @@ nav a.active .icon { color: var(--blue); }
 
 /* ── ROBUST RESPONSIVE SYSTEM ──────────────────── */
 @media (max-width: 1100px) {
+  :root {
+    --sidebar-w: 0px;
+  }
   #sidebar {
-    left: -320px;
+    left: -280px;
+    width: 280px;
   }
   #sidebar.open {
     left: 0;
-    box-shadow: 20px 0 50px rgba(0,0,0,0.1);
+    box-shadow: 20px 0 50px rgba(0,0,0,0.2);
   }
   #main {
     margin-left: 0;
   }
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(4px);
+    z-index: 900;
+    display: none;
+  }
+  .sidebar-overlay.open {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  #content { padding: 16px; }
+  .kpi-grid { grid-template-columns: 1fr; gap: 16px; }
+  .dashboard-main-grid { grid-template-columns: 1fr; }
+  .btn { width: 100%; justify-content: center; }
+  .flex-gap { flex-wrap: wrap; }
+  
+  /* Mobile Typography */
+  .kpi-value { font-size: 28px; }
+  h2 { font-size: 18px; }
 }
 
 @media (max-width: 640px) {
   #topbar { padding: 0 16px; }
-  #content { padding: 16px; }
-  
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }
   
   .toolbar {
     flex-direction: column;
     align-items: stretch !important;
-    gap: 16px;
+    gap: 12px;
   }
   
   .form-grid.cols2 {
     grid-template-columns: 1fr !important;
   }
+
+  /* Table Mobile Enhancements */
+  td, th { padding: 12px 16px; font-size: 13px; }
+  .amt { font-size: 13px; }
 }
 
 @media (min-width: 641px) {

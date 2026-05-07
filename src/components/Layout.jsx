@@ -53,18 +53,15 @@ export function Layout({ children, title }) {
     <div id="app">
       <div className="app-bg" />
       
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={() => setIsMenuOpen(false)}
-            style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.4)', backdropFilter: 'blur(8px)', zIndex: 900 }}
-          />
-        )}
-      </AnimatePresence>
+      <div className={`sidebar-overlay ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(false)} />
 
       <aside id="sidebar" className={isMenuOpen ? 'open' : ''}>
-        <nav style={{ paddingTop: 20, paddingBottom: 40 }}>
+        <div className="mobile-only" style={{ padding: '20px 24px 0', justifyContent: 'flex-end' }}>
+          <button onClick={() => setIsMenuOpen(false)} style={{ background: 'var(--grey)', border: 'none', padding: 8, borderRadius: 8, color: 'var(--navy)' }}>
+            <X size={20} />
+          </button>
+        </div>
+        <nav style={{ paddingTop: 0, paddingBottom: 40 }}>
           {navItems.map(sec => (
             <div key={sec.section}>
               <div className="nav-section">{sec.section}</div>
