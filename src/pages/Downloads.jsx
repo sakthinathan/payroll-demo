@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import toast from 'react-hot-toast'
+import * as XLSX from 'xlsx'
 import { DB, fmt } from '../lib/db'
 import { Layout } from '../components/Layout'
 import { Panel, Spinner } from '../components/UI'
@@ -16,21 +17,8 @@ const REMITTER_ADDR  = 'ERODE'
 const REMITTER_EMAIL = 'sbi.12777@sbi.co.in'
 const SBI_IFSC_PREFIX = 'SBIN'
 
-// ── LOAD SHEETJS ──────────────────────────────────────────────────
-function loadSheetJS() {
-  return new Promise((resolve, reject) => {
-    if (window.XLSX) { resolve(window.XLSX); return }
-    const script = document.createElement('script')
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
-    script.onload  = () => resolve(window.XLSX)
-    script.onerror = reject
-    document.head.appendChild(script)
-  })
-}
-
 // ── BANK EXCEL GENERATOR ──────────────────────────────────────────
 async function generateBankExcel(label, entries, emps, bankList, wd) {
-  const XLSX    = await loadSheetJS()
   const weekCode = label.replace(/\s+/g, '').toUpperCase().slice(0, 8)
   const sbiRows  = []
   const otherRows = []
